@@ -1,4 +1,4 @@
-import type { Restaurant } from "../hooks/useRestaurants";
+import type { Restaurant } from "../types/restaurant";
 
 export function pickRestaurant(
   restaurants: Restaurant[],

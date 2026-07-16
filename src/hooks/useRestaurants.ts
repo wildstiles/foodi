@@ -1,12 +1,5 @@
 import { useEffect, useState } from "react";
-
-export type Restaurant = {
-  restaurant: string;
-  category: string;
-  visited: string;
-  lat: string;
-  lng: string;
-};
+import type { Restaurant } from "../types/restaurant";
 
 export function useRestaurants() {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
