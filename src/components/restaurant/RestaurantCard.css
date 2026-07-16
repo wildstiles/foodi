@@ -1,0 +1,35 @@
+.restaurant-card {
+  background: var(--foodi-surface);
+  border-radius: 20px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: var(--foodi-shadow);
+}
+
+.restaurant-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.restaurant-card h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.restaurant-category {
+  margin-top: 8px;
+  color: var(--foodi-text-secondary);
+}
+
+.visited-badge {
+  background: var(--foodi-success);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+}
+
+.restaurant-actions {
+  margin-top: 16px;
+}

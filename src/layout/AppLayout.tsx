@@ -1,62 +1,59 @@
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import {
-  BottomNavigation,
-  BottomNavigationAction,
-  Paper,
-  Box,
-} from "@mui/material";
-
-import HomeIcon from "@mui/icons-material/Home";
-import MapIcon from "@mui/icons-material/Map";
-import CasinoIcon from "@mui/icons-material/Casino";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import PersonIcon from "@mui/icons-material/Person";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import "./AppLayout.css";
 
 export default function AppLayout() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const getValue = () => {
-    if (location.pathname.includes("explore")) return 1;
-    if (location.pathname.includes("decide")) return 2;
-    if (location.pathname.includes("saved")) return 3;
-    if (location.pathname.includes("profile")) return 4;
-
-    return 0;
-  };
+  const tabs = [
+    {
+      label: "Home",
+      icon: "🏠",
+      path: "/",
+    },
+    {
+      label: "Explore",
+      icon: "🗺️",
+      path: "/explore",
+    },
+    {
+      label: "Pick",
+      icon: "🎲",
+      path: "/pick",
+    },
+    {
+      label: "Favorites",
+      icon: "❤️",
+      path: "/favorites",
+    },
+    {
+      label: "Profile",
+      icon: "👤",
+      path: "/profile",
+    },
+  ];
 
   return (
-    <Box sx={{ pb: 7 }}>
-      <Outlet />
+    <div className="app-layout">
+      <main className="app-content">
+        <Outlet />
+      </main>
 
-      <Paper
-        sx={{
-          position: "fixed",
-          bottom: 0,
-          left: 0,
-          right: 0,
-        }}
-        elevation={8}
-      >
-        <BottomNavigation
-          value={getValue()}
-          onChange={(event, newValue) => {
-            const routes = ["/", "/explore", "/decide", "/saved", "/profile"];
+      <nav className="bottom-nav">
+        {tabs.map((tab) => (
+          <button
+            key={tab.path}
+            className={
+              location.pathname === tab.path ? "nav-item active" : "nav-item"
+            }
+            onClick={() => navigate(tab.path)}
+          >
+            <span className="nav-icon">{tab.icon}</span>
 
-            navigate(routes[newValue]);
-          }}
-        >
-          <BottomNavigationAction label="Home" icon={<HomeIcon />} />
-
-          <BottomNavigationAction label="Explore" icon={<MapIcon />} />
-
-          <BottomNavigationAction label="Decide" icon={<CasinoIcon />} />
-
-          <BottomNavigationAction label="Saved" icon={<FavoriteIcon />} />
-
-          <BottomNavigationAction label="Profile" icon={<PersonIcon />} />
-        </BottomNavigation>
-      </Paper>
-    </Box>
+            <span className="nav-label">{tab.label}</span>
+          </button>
+        ))}
+      </nav>
+    </div>
   );
 }

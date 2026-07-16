@@ -1,0 +1,53 @@
+.foodi-card {
+  background: var(--foodi-surface);
+  border-radius: 20px;
+  padding: var(--space-md);
+  box-shadow: var(--foodi-shadow);
+}
+
+.foodi-button {
+  border: none;
+  border-radius: 999px;
+  padding: 12px 20px;
+  background: var(--foodi-orange);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.foodi-button:hover {
+  background: var(--foodi-orange-dark);
+}
+
+.page-container {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.home-header {
+  margin-bottom: 24px;
+}
+
+.home-header h1 {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.section-title {
+  margin-top: 24px;
+}
+
+.foodi-search {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--foodi-border);
+  background: white;
+  font-size: 1rem;
+  outline: none;
+}
+
+.foodi-search:focus {
+  border-color: var(--foodi-orange);
+}

@@ -1,0 +1,17 @@
+:root {
+  --foodi-orange: #ff6b35;
+  --foodi-orange-dark: #e85a28;
+
+  --foodi-background: #faf7f2;
+  --foodi-surface: #ffffff;
+
+  --foodi-text: #1f1f1f;
+  --foodi-text-secondary: #6b6b6b;
+
+  --foodi-border: #e8e2da;
+
+  --foodi-success: #2e7d32;
+  --foodi-danger: #d32f2f;
+
+  --foodi-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}

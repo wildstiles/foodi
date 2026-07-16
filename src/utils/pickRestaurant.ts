@@ -1,8 +1,8 @@
-import { Restaurant } from "../hooks/useRestaurants";
+import type { Restaurant } from "../hooks/useRestaurants";
 
 export function pickRestaurant(
   restaurants: Restaurant[],
-  userLocation?: {
+  _userLocation?: {
     lat: number;
     lng: number;
   } | null,
