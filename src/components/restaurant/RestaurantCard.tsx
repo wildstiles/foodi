@@ -1,12 +1,5 @@
 import "./RestaurantCard.css";
-
-type Restaurant = {
-  restaurant: string;
-  category: string;
-  visited: string;
-  lat: string;
-  lng: string;
-};
+import type { Restaurant } from "../../types/restaurant";
 
 type Props = {
   restaurant: Restaurant;

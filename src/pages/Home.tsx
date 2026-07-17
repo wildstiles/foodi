@@ -1,5 +1,6 @@
 import { useState } from "react";
 import RestaurantCard from "../components/restaurant/RestaurantCard";
+import RecommendationCard from "../components/RecommendationCard";
 import { useRestaurants } from "../hooks/useRestaurants";
 
 export default function Home() {
@@ -23,9 +24,9 @@ export default function Home() {
     <div className="page-container">
       <section className="home-header">
         <h1>Welcome back 🍔</h1>
-
         <p>Find your next favorite place to eat.</p>
       </section>
+      <RecommendationCard restaurants={restaurants} />
 
       <input
         className="foodi-search"
@@ -33,7 +34,6 @@ export default function Home() {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-
       <section>
         <h2 className="section-title">Restaurants</h2>
 
@@ -41,7 +41,10 @@ export default function Home() {
           <p>No restaurants found.</p>
         ) : (
           filteredRestaurants.map((restaurant, index) => (
-            <RestaurantCard key={index} restaurant={restaurant} />
+            <RestaurantCard
+              key={restaurant.restaurant || index}
+              restaurant={restaurant}
+            />
           ))
         )}
       </section>
