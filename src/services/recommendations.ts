@@ -1,4 +1,5 @@
 import type { Restaurant } from "../types/restaurant";
+import type { UserPreferences } from "../types/preferences";
 
 export type FoodIntent = "quick" | "new" | "comfort" | "budget" | "surprise";
 
@@ -6,6 +7,7 @@ export type RecommendationOptions = {
   category?: string;
   favorites?: string[];
   intent?: FoodIntent;
+  preferences?: UserPreferences;
 };
 
 export type RecommendationResult = {
@@ -62,6 +64,22 @@ export function scoreRestaurant(
     score += 15;
 
     reasons.push("Surprise discovery pick");
+  }
+
+  // Preference scoring
+
+  if (options.preferences?.favoriteCategories.includes(restaurant.category)) {
+    score += 35;
+
+    reasons.push("Matches your favorite food categories");
+  }
+
+  if (
+    options.preferences?.dislikedRestaurants.includes(restaurant.restaurant)
+  ) {
+    score -= 100;
+
+    reasons.push("You usually avoid this place");
   }
 
   // Random factor

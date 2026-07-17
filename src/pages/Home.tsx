@@ -2,9 +2,13 @@ import { useState } from "react";
 import RestaurantCard from "../components/restaurant/RestaurantCard";
 import RecommendationCard from "../components/RecommendationCard";
 import { useRestaurants } from "../hooks/useRestaurants";
+import PreferencePanel from "../components/preferences/PreferencePanel";
+import { usePreferences } from "../hooks/usePreferences";
 
 export default function Home() {
   const { restaurants, loading } = useRestaurants();
+
+  const { preferences, setPreferences } = usePreferences();
 
   const [search, setSearch] = useState("");
 
@@ -26,6 +30,12 @@ export default function Home() {
         <h1>Welcome back 🍔</h1>
         <p>Find your next favorite place to eat.</p>
       </section>
+
+      <PreferencePanel
+        preferences={preferences}
+        setPreferences={setPreferences}
+      />
+
       <RecommendationCard restaurants={restaurants} />
 
       <input

@@ -3,11 +3,15 @@ import { recommendRestaurant } from "../services/recommendations";
 import type { RecommendationResult } from "../services/recommendations";
 import type { Restaurant } from "../types/restaurant";
 import { intents } from "../services/intents";
+import { usePreferences } from "../hooks/usePreferences";
+
 type Props = {
   restaurants: Restaurant[];
 };
 
 export default function RecommendationCard({ restaurants }: Props) {
+  const { preferences } = usePreferences();
+
   const [recommendation, setRecommendation] =
     useState<RecommendationResult | null>(null);
 
@@ -19,6 +23,7 @@ export default function RecommendationCard({ restaurants }: Props) {
     const result = recommendRestaurant(restaurants, {
       favorites: [],
       intent,
+      preferences,
     });
 
     if (result) {
