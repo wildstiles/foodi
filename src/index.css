@@ -14,6 +14,19 @@ body,
   min-height: 100%;
 }
 
+.intent-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  margin: 6px 0;
+  cursor: pointer;
+}
+
+.intent-card.active {
+  outline: 2px solid black;
+}
+
 body {
   background: var(--foodi-background);
 }

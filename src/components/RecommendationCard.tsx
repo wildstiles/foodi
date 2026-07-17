@@ -48,8 +48,18 @@ export default function RecommendationCard({ restaurants }: Props) {
         <h3>What are you feeling?</h3>
 
         {intents.map((item) => (
-          <button key={item.id} onClick={() => setIntent(item.id)}>
-            {item.icon} {item.label}
+          <button
+            key={item.id}
+            onClick={() => setIntent(item.id)}
+            className={
+              intent === item.id ? "intent-card active" : "intent-card"
+            }
+          >
+            <span>
+              {item.icon} {item.label}
+            </span>
+
+            <small>{item.description}</small>
           </button>
         ))}
       </div>
