@@ -5,11 +5,15 @@ import RecommendationCard from "../components/RecommendationCard";
 import { useRestaurants } from "../hooks/useRestaurants";
 import PreferencePanel from "../components/preferences/PreferencePanel";
 import { usePreferences } from "../hooks/usePreferences";
+import TasteProfileCard from "../components/TasteProfileCard";
+import { useTasteMemory } from "../hooks/useTasteMemory";
 
 export default function Home() {
   const { restaurants, loading } = useRestaurants();
 
   const { preferences, setPreferences } = usePreferences();
+
+  const { memories } = useTasteMemory();
 
   const [search, setSearch] = useState("");
 
@@ -33,7 +37,11 @@ export default function Home() {
       </section>
 
       <section className="dashboard-section">
-        <h2 className="section-label">🧠 Your Taste Profile</h2>
+        <TasteProfileCard memories={memories} />
+      </section>
+
+      <section className="dashboard-section">
+        <h2 className="section-label">🧠 Your Preferences</h2>
 
         <PreferencePanel
           preferences={preferences}

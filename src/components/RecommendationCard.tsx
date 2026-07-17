@@ -4,6 +4,7 @@ import { recommendRestaurant } from "../services/recommendations";
 import type { RecommendationResult } from "../services/recommendations";
 import type { Restaurant } from "../types/restaurant";
 import { intents } from "../services/intents";
+import { useTasteMemory } from "../hooks/useTasteMemory";
 
 import type { UserPreferences } from "../types/preferences";
 
@@ -16,6 +17,8 @@ export default function RecommendationCard({
   restaurants,
   preferences,
 }: Props) {
+  const { addMemory } = useTasteMemory();
+
   const [recommendation, setRecommendation] =
     useState<RecommendationResult | null>(null);
 
@@ -58,6 +61,58 @@ export default function RecommendationCard({
                 <div className="recommendation-title">
                   <h3>{recommendation.restaurant.restaurant}</h3>
                   <p>{recommendation.restaurant.category}</p>
+
+                  <div className="feedback-section">
+                    <h4>Did you like this?</h4>
+
+                    <button
+                      onClick={() =>
+                        addMemory(
+                          recommendation.restaurant.restaurant,
+                          "loved",
+                          recommendation.restaurant.category,
+                        )
+                      }
+                    >
+                      ❤️ Loved
+                    </button>
+
+                    <button
+                      onClick={() =>
+                        addMemory(
+                          recommendation.restaurant.restaurant,
+                          "liked",
+                          recommendation.restaurant.category,
+                        )
+                      }
+                    >
+                      👍 Good
+                    </button>
+
+                    <button
+                      onClick={() =>
+                        addMemory(
+                          recommendation.restaurant.restaurant,
+                          "okay",
+                          recommendation.restaurant.category,
+                        )
+                      }
+                    >
+                      😐 Okay
+                    </button>
+
+                    <button
+                      onClick={() =>
+                        addMemory(
+                          recommendation.restaurant.restaurant,
+                          "disliked",
+                          recommendation.restaurant.category,
+                        )
+                      }
+                    >
+                      👎 Disliked
+                    </button>
+                  </div>
                 </div>
                 import {intents} from "../services/intents";
                 <ul>

@@ -1,5 +1,6 @@
 import type { Restaurant } from "../types/restaurant";
 import type { UserPreferences } from "../types/preferences";
+import type { TasteMemory } from "../types/tasteMemory";
 
 export type FoodIntent = "quick" | "new" | "comfort" | "budget" | "surprise";
 
@@ -7,6 +8,7 @@ export type RecommendationOptions = {
   category?: string;
   favorites?: string[];
   intent?: FoodIntent;
+  memories?: TasteMemory[];
   preferences?: UserPreferences;
 };
 
@@ -95,6 +97,29 @@ export function scoreRestaurant(
     if (restaurant.visited?.toLowerCase() === "yes") {
       score += 25;
       reasons.push("Matches your familiar favorites");
+    }
+  }
+
+  // Taste memory boost
+
+  const memory = options.memories?.find(
+    (item) => item.restaurant === restaurant.restaurant,
+  );
+
+  if (memory) {
+    if (memory.reaction === "loved") {
+      score += 50;
+      reasons.push("You loved this before");
+    }
+
+    if (memory.reaction === "liked") {
+      score += 25;
+      reasons.push("You enjoyed this before");
+    }
+
+    if (memory.reaction === "disliked") {
+      score -= 50;
+      reasons.push("You disliked this before");
     }
   }
 
