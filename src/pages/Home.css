@@ -1,0 +1,42 @@
+.home-dashboard {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .home-dashboard {
+    padding: 16px;
+  }
+
+  .home-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .section-label {
+    font-size: 0.95rem;
+  }
+}
+
+button {
+  min-height: 44px;
+}
+
+.home-header {
+  margin-bottom: 24px;
+}
+
+.section-title {
+  margin-top: 32px;
+}
+
+.dashboard-section {
+  margin-bottom: 32px;
+}
+
+.section-label {
+  font-size: 1rem;
+  margin-bottom: 12px;
+}

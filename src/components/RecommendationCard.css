@@ -1,0 +1,42 @@
+.recommendation-card {
+  background: white;
+  border-radius: 18px;
+  padding: 20px;
+  margin: 24px 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.recommendation-card h2 {
+  margin-bottom: 12px;
+}
+
+.recommendation-intent {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+  font-weight: bold;
+}
+
+.recommendation-title h3 {
+  margin-bottom: 4px;
+}
+
+.recommendation-title p {
+  margin-top: 0;
+  opacity: 0.7;
+}
+
+.recommendation-card ul {
+  padding-left: 20px;
+}
+
+.recommendation-card button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 16px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}

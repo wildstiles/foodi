@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./Home.css";
 import RestaurantCard from "../components/restaurant/RestaurantCard";
 import RecommendationCard from "../components/RecommendationCard";
 import { useRestaurants } from "../hooks/useRestaurants";
@@ -25,18 +26,29 @@ export default function Home() {
   }
 
   return (
-    <div className="page-container">
+    <div className="home-dashboard">
       <section className="home-header">
         <h1>Welcome back 🍔</h1>
         <p>Find your next favorite place to eat.</p>
       </section>
 
-      <PreferencePanel
-        preferences={preferences}
-        setPreferences={setPreferences}
-      />
+      <section className="dashboard-section">
+        <h2 className="section-label">🧠 Your Taste Profile</h2>
 
-      <RecommendationCard restaurants={restaurants} />
+        <PreferencePanel
+          preferences={preferences}
+          setPreferences={setPreferences}
+        />
+      </section>
+
+      <section className="dashboard-section">
+        <h2 className="section-label">⭐ Recommended For You</h2>
+
+        <RecommendationCard
+          restaurants={restaurants}
+          preferences={preferences}
+        />
+      </section>
 
       <input
         className="foodi-search"

@@ -1,4 +1,5 @@
 import type { UserPreferences } from "../../types/preferences";
+import "./PreferencePanel.css";
 
 type Props = {
   preferences: UserPreferences;
@@ -16,6 +17,11 @@ export default function PreferencePanel({
       <h3>Adventure Level</h3>
 
       <button
+        className={
+          preferences.adventurousness === "safe"
+            ? "intent-card active"
+            : "intent-card"
+        }
         onClick={() =>
           setPreferences({
             ...preferences,
@@ -27,6 +33,11 @@ export default function PreferencePanel({
       </button>
 
       <button
+        className={
+          preferences.adventurousness === "balanced"
+            ? "intent-card active"
+            : "intent-card"
+        }
         onClick={() =>
           setPreferences({
             ...preferences,
@@ -38,6 +49,11 @@ export default function PreferencePanel({
       </button>
 
       <button
+        className={
+          preferences.adventurousness === "adventurous"
+            ? "intent-card active"
+            : "intent-card"
+        }
         onClick={() =>
           setPreferences({
             ...preferences,
@@ -51,6 +67,11 @@ export default function PreferencePanel({
       <h3>Budget</h3>
 
       <button
+        className={
+          preferences.pricePreference === "budget"
+            ? "intent-card active"
+            : "intent-card"
+        }
         onClick={() =>
           setPreferences({
             ...preferences,
@@ -62,6 +83,11 @@ export default function PreferencePanel({
       </button>
 
       <button
+        className={
+          preferences.pricePreference === "medium"
+            ? "intent-card active"
+            : "intent-card"
+        }
         onClick={() =>
           setPreferences({
             ...preferences,
@@ -73,6 +99,11 @@ export default function PreferencePanel({
       </button>
 
       <button
+        className={
+          preferences.pricePreference === "premium"
+            ? "intent-card active"
+            : "intent-card"
+        }
         onClick={() =>
           setPreferences({
             ...preferences,

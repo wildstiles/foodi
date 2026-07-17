@@ -1,17 +1,21 @@
 import { useState } from "react";
+import "./RecommendationCard.css";
 import { recommendRestaurant } from "../services/recommendations";
 import type { RecommendationResult } from "../services/recommendations";
 import type { Restaurant } from "../types/restaurant";
 import { intents } from "../services/intents";
-import { usePreferences } from "../hooks/usePreferences";
+
+import type { UserPreferences } from "../types/preferences";
 
 type Props = {
   restaurants: Restaurant[];
+  preferences: UserPreferences;
 };
 
-export default function RecommendationCard({ restaurants }: Props) {
-  const { preferences } = usePreferences();
-
+export default function RecommendationCard({
+  restaurants,
+  preferences,
+}: Props) {
   const [recommendation, setRecommendation] =
     useState<RecommendationResult | null>(null);
 
@@ -33,7 +37,7 @@ export default function RecommendationCard({ restaurants }: Props) {
 
   return (
     <div className="recommendation-card">
-      <h2>🍽️ Foodi Recommendation</h2>
+      <h2>⭐ Today's Pick</h2>
 
       {recommendation ? (
         <>
@@ -47,18 +51,20 @@ export default function RecommendationCard({ restaurants }: Props) {
 
             {recommendation ? (
               <>
-                <h4>
+                <div className="recommendation-intent">
                   {intents.find((item) => item.id === intent)?.icon}{" "}
                   {intents.find((item) => item.id === intent)?.label}
-                </h4>
-                <h3>{recommendation.restaurant.restaurant}</h3>
+                </div>
+                <div className="recommendation-title">
+                  <h3>{recommendation.restaurant.restaurant}</h3>
+                  <p>{recommendation.restaurant.category}</p>
+                </div>
                 import {intents} from "../services/intents";
                 <ul>
                   {recommendation.reasons.map((reason, index) => (
                     <li key={index}>{reason}</li>
                   ))}
                 </ul>
-                <p>{recommendation.restaurant.category}</p>
               </>
             ) : (
               <p>Press the button to get a recommendation.</p>

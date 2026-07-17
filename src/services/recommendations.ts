@@ -82,6 +82,22 @@ export function scoreRestaurant(
     reasons.push("You usually avoid this place");
   }
 
+  // Adventure preference
+
+  if (options.preferences?.adventurousness === "adventurous") {
+    if (restaurant.visited?.toLowerCase() !== "yes") {
+      score += 25;
+      reasons.push("Fits your adventurous style");
+    }
+  }
+
+  if (options.preferences?.adventurousness === "safe") {
+    if (restaurant.visited?.toLowerCase() === "yes") {
+      score += 25;
+      reasons.push("Matches your familiar favorites");
+    }
+  }
+
   // Random factor
   score += Math.floor(Math.random() * 10);
 
