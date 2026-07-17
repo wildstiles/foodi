@@ -1,46 +1,69 @@
 import type { Restaurant } from "../types/restaurant";
 
+export type RecommendationOptions = {
+  category?: string;
+  favorites?: string[];
+};
+
+export type RecommendationResult = {
+  restaurant: Restaurant;
+  score: number;
+  reasons: string[];
+};
+
 export function scoreRestaurant(
   restaurant: Restaurant,
-  options: {
-    favorites: string[];
-    category?: string;
-  },
+  options: RecommendationOptions,
 ) {
   let score = 0;
-
-  // Favorite boost
-  if (options.favorites.includes(restaurant.restaurant)) {
-    score += 40;
-  }
-
-  // Not visited
-  if (restaurant.visited !== "TRUE") {
-    score += 20;
-  }
+  const reasons: string[] = [];
 
   // Category match
   if (options.category && restaurant.category === options.category) {
     score += 30;
+    reasons.push(`Matches your ${options.category} preference`);
   }
 
-  // Small randomness
-  score += Math.floor(Math.random() * 20) - 10;
+  // Favorite boost
+  if (options.favorites?.includes(restaurant.restaurant)) {
+    score += 40;
+    reasons.push("One of your favorites");
+  }
 
-  return score;
+  // Avoid places already visited
+  if (restaurant.visited?.toLowerCase() !== "yes") {
+    score += 20;
+    reasons.push("You haven't tried this yet");
+  }
+
+  // Random factor
+  score += Math.floor(Math.random() * 10);
+
+  return {
+    score,
+    reasons,
+  };
 }
 
 export function recommendRestaurant(
   restaurants: Restaurant[],
-  options: {
-    favorites: string[];
-    category?: string;
-  },
-) {
-  return restaurants
-    .map((restaurant) => ({
+  options: RecommendationOptions = {},
+): RecommendationResult | null {
+  if (!restaurants.length) {
+    return null;
+  }
+
+  const ranked = restaurants.map((restaurant) => {
+    const result = scoreRestaurant(restaurant, options);
+
+    return {
       restaurant,
-      score: scoreRestaurant(restaurant, options),
-    }))
-    .sort((a, b) => b.score - a.score)[0]?.restaurant;
+      score: result.score,
+      reasons: result.reasons,
+    };
+  });
+
+  ranked.sort((a, b) => b.score - a.score);
+
+  return ranked[0];
 }
