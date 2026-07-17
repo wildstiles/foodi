@@ -1,8 +1,11 @@
 import type { Restaurant } from "../types/restaurant";
 
+export type FoodIntent = "quick" | "new" | "comfort" | "budget" | "surprise";
+
 export type RecommendationOptions = {
   category?: string;
   favorites?: string[];
+  intent?: FoodIntent;
 };
 
 export type RecommendationResult = {
@@ -33,7 +36,32 @@ export function scoreRestaurant(
   // Avoid places already visited
   if (restaurant.visited?.toLowerCase() !== "yes") {
     score += 20;
+
     reasons.push("You haven't tried this yet");
+  }
+
+  // User intent scoring
+
+  if (options.intent === "new") {
+    if (restaurant.visited?.toLowerCase() !== "yes") {
+      score += 50;
+
+      reasons.push("You wanted something new");
+    }
+  }
+
+  if (options.intent === "comfort") {
+    if (options.favorites?.includes(restaurant.restaurant)) {
+      score += 50;
+
+      reasons.push("A familiar favorite");
+    }
+  }
+
+  if (options.intent === "surprise") {
+    score += 15;
+
+    reasons.push("Surprise discovery pick");
   }
 
   // Random factor

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { recommendRestaurant } from "../services/recommendations";
 import type { RecommendationResult } from "../services/recommendations";
+import type { Restaurant } from "../types/restaurant";
 type Props = {
   restaurants: Restaurant[];
 };
@@ -8,9 +9,15 @@ type Props = {
 export default function RecommendationCard({ restaurants }: Props) {
   const [recommendation, setRecommendation] =
     useState<RecommendationResult | null>(null);
+
+  const [intent, setIntent] = useState<
+    "quick" | "new" | "comfort" | "budget" | "surprise"
+  >("surprise");
+
   function pickRestaurant() {
     const result = recommendRestaurant(restaurants, {
       favorites: [],
+      intent,
     });
 
     if (result) {
@@ -30,11 +37,25 @@ export default function RecommendationCard({ restaurants }: Props) {
               <li key={index}>{reason}</li>
             ))}
           </ul>
-          <p>{recommendation.category}</p>
+          <p>{recommendation.restaurant.category}</p>
         </>
       ) : (
         <p>Press the button to get a recommendation.</p>
       )}
+
+      <div>
+        <h3>What are you feeling?</h3>
+
+        <button onClick={() => setIntent("quick")}>🍔 Quick Bite</button>
+
+        <button onClick={() => setIntent("new")}>🔥 Something New</button>
+
+        <button onClick={() => setIntent("comfort")}>❤️ Comfort Food</button>
+
+        <button onClick={() => setIntent("budget")}>💰 Budget</button>
+
+        <button onClick={() => setIntent("surprise")}>🎲 Surprise Me</button>
+      </div>
 
       <button onClick={pickRestaurant}>🎲 Recommend Again</button>
     </div>
