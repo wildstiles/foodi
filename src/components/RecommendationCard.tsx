@@ -2,6 +2,7 @@ import { useState } from "react";
 import { recommendRestaurant } from "../services/recommendations";
 import type { RecommendationResult } from "../services/recommendations";
 import type { Restaurant } from "../types/restaurant";
+import { intents } from "../services/intents";
 type Props = {
   restaurants: Restaurant[];
 };
@@ -46,15 +47,11 @@ export default function RecommendationCard({ restaurants }: Props) {
       <div>
         <h3>What are you feeling?</h3>
 
-        <button onClick={() => setIntent("quick")}>🍔 Quick Bite</button>
-
-        <button onClick={() => setIntent("new")}>🔥 Something New</button>
-
-        <button onClick={() => setIntent("comfort")}>❤️ Comfort Food</button>
-
-        <button onClick={() => setIntent("budget")}>💰 Budget</button>
-
-        <button onClick={() => setIntent("surprise")}>🎲 Surprise Me</button>
+        {intents.map((item) => (
+          <button key={item.id} onClick={() => setIntent(item.id)}>
+            {item.icon} {item.label}
+          </button>
+        ))}
       </div>
 
       <button onClick={pickRestaurant}>🎲 Recommend Again</button>
