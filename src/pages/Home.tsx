@@ -6,14 +6,14 @@ import { useRestaurants } from "../hooks/useRestaurants";
 import PreferencePanel from "../components/preferences/PreferencePanel";
 import { usePreferences } from "../hooks/usePreferences";
 import TasteProfileCard from "../components/TasteProfileCard";
-import { useTasteMemory } from "../hooks/useTasteMemory";
+import { useTasteMemoryContext } from "../context/TasteMemoryContext";
 
 export default function Home() {
   const { restaurants, loading } = useRestaurants();
 
   const { preferences, setPreferences } = usePreferences();
 
-  const { memories } = useTasteMemory();
+  const { memories } = useTasteMemoryContext();
 
   const [search, setSearch] = useState("");
 
