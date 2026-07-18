@@ -16,7 +16,7 @@ export default function RecommendationCard({
   restaurants,
   preferences,
 }: Props) {
-  const { addMemory } = useTasteMemoryContext();
+  const { memories, addMemory } = useTasteMemoryContext();
 
   const [recommendation, setRecommendation] =
     useState<RecommendationResult | null>(null);
@@ -29,6 +29,7 @@ export default function RecommendationCard({
     const result = recommendRestaurant(restaurants, {
       favorites: [],
       intent,
+      memories,
       preferences,
     });
 
