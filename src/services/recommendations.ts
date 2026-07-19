@@ -102,25 +102,57 @@ export function scoreRestaurant(
 
   // Taste memory boost
 
-  const memory = options.memories?.find(
-    (item) => item.restaurant === restaurant.restaurant,
-  );
+  const memories =
+    options.memories?.filter(
+      (item) => item.restaurant === restaurant.restaurant,
+    ) ?? [];
 
-  if (memory) {
-    if (memory.reaction === "loved") {
-      score += 50;
-      reasons.push("You loved this before");
-    }
+  const lovedCount = memories.filter(
+    (item) => item.reaction === "loved",
+  ).length;
 
-    if (memory.reaction === "liked") {
-      score += 25;
-      reasons.push("You enjoyed this before");
-    }
+  const likedCount = memories.filter(
+    (item) => item.reaction === "liked",
+  ).length;
 
-    if (memory.reaction === "disliked") {
-      score -= 50;
-      reasons.push("You disliked this before");
-    }
+  const dislikedCount = memories.filter(
+    (item) => item.reaction === "disliked",
+  ).length;
+
+  if (lovedCount > 0) {
+    const boost = lovedCount * 50;
+
+    score += boost;
+
+    reasons.push(
+      lovedCount === 1
+        ? "You loved this before"
+        : `You loved this ${lovedCount} times`,
+    );
+  }
+
+  if (likedCount > 0) {
+    const boost = likedCount * 25;
+
+    score += boost;
+
+    reasons.push(
+      likedCount === 1
+        ? "You enjoyed this before"
+        : `You liked this ${likedCount} times`,
+    );
+  }
+
+  if (dislikedCount > 0) {
+    const penalty = dislikedCount * 50;
+
+    score -= penalty;
+
+    reasons.push(
+      dislikedCount === 1
+        ? "You disliked this before"
+        : `You disliked this ${dislikedCount} times`,
+    );
   }
 
   // Random factor
